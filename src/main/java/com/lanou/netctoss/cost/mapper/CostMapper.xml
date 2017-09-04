@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanou.netctoss.cost.mapper.CostMapper">
+    <resultMap id="CostMap" type="Cost">
+        <id column="cost_id" property="cost_id"/>
+        <result column="name" property="name"/>
+        <result column="base_duration" property="base_duration"/>
+        <result column="base_cost" property="base_cost"/>
+        <result column="unit_cost" property="unit_cost"/>
+        <result column="status" property="status"/>
+        <result column="descr" property="descr"/>
+        <result column="creatime" property="creatime"/>
+        <result column="startime" property="startime"/>
+        <result column="cost_type" property="cost_type"/>
+    </resultMap>
+
+
+
+
+    <insert id="addCost" useGeneratedKeys="true" keyProperty="cost_id" parameterType="Cost" >
+        INSERT INTO cost VALUES (NULL ,#{name},#{base_duration},#{base_cost},#{unit_cost},#{status},#{descr},#{creatime},#{startime},#{cost_type})
+    </insert>
+
+
+    <select id="findCost" resultType="com.lanou.netctoss.cost.bean.Cost">
+        SELECT * FROM cost
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM cost WHERE cost_id=#{did}
+    </delete>
+    <select id="findById" resultMap="CostMap" parameterType="int">
+        SELECT * FROM  cost WHERE  cost_id = #{fid}
+    </select>
+    <update id="update" parameterType="Cost">
+        UPDATE cost SET name=#{name}, base_duration= #{base_duration},base_cost=#{base_cost},unit_cost=#{unit_cost},descr=#{descr},cost_type=#{cost_type} where cost_id=#{cost_id}
+    </update>
+
+    <update id="enable" parameterType="Cost">
+        UPDATE cost SET status="0" WHERE cost_id=#{cost_id}
+    </update>
+
+
+</mapper>
